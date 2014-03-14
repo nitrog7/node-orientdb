@@ -12,7 +12,7 @@
     "node",
     "node.js"
   ],
-  "version": "1.7.0-5",
+  "version": "1.7.0-6",
   "author": {
     "name": "Giraldo Rosales",
     "email": "giraldo@nitrogenlabs.com"
@@ -33,6 +33,10 @@
     {
       "name": "Navin Parray",
       "email": "navinparray@gmail.com"
+    },
+    {
+      "name": "Charles Pick",
+      "email": "charles@codemix.com"
     }
   ],
   "repository": {
@@ -44,18 +48,19 @@
     "bluebird": "*"
   },
   "devDependencies": {
-    "tap": "0.4",
-    "async": "*"
+    "mocha": "*",
+    "should": "*",
+    "expect.js": "*"
   },
-  "main": "./lib/orientdb/index",
+  "main": "./lib/index.js",
   "directories": {
-    "lib": "./lib/orientdb"
+    "lib": "./lib"
   },
   "engines": {
     "node": ">=0.6.0"
   },
   "scripts": {
-    "test": "node ./node_modules/tap/bin/tap.js ./test/errors/test_* ./test/parser/test_* ./test/test_*"
+    "test": "echo \"\n\nNOTICE: If tests fail, please ensure you've set the correct credentials in test/test-server.json\n\n\"; node ./node_modules/mocha/bin/mocha ./test/index.js ./test/**/*.js ./test/**/**/*.js --reporter=spec"
   },
   "licenses": [
     {
