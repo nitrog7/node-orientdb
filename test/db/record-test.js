@@ -12,19 +12,37 @@ describe("Database API - Record", function () {
 			.done();
 	});
 
-	describe('Db::record.get()', function () {
-		it('should get the record with the given rid', function (done) {
-			this.db.record.get('#5:0')
-				.then(function (record) {
-					record['@class'].should.equal('OUser');
-					record['@rid'].should.have.properties({
-						cluster: 5,
-						position: 0
-					});
-					done();
-				}, done).done();
-		});
-	});
+  describe('Db::record.get()', function () {
+    it('should get the record with the given rid', function (done) {
+      this.db.record.get('#5:0')
+      .then(function (record) {
+        record['@class'].should.equal('OUser');
+        record['@rid'].should.have.properties({
+          cluster: 5,
+          position: 0
+        });
+        done();
+      }, done).done();
+    });
+    it('should get the record with a fetch plan', function (done) {
+      this.db.record.get({
+        '@rid': '#5:0',
+        '@options': {
+          fetchPlan: '*:-1'
+        }
+      })
+      .then(function (record) {
+        record['@class'].should.equal('OUser');
+        record['@rid'].should.have.properties({
+          cluster: 5,
+          position: 0
+        });
+        record.roles.length.should.be.above(0);
+        record.roles[0]['@class'].should.equal('ORole');
+        done();
+      }, done).done();
+    });
+  });
 
 	describe('Db::record.create()', function () {
 		it('should create a record', function (done) {
