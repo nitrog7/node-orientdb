@@ -81,7 +81,7 @@ var db = server.use({
   name: 'test',
   username: 'admin',
   password: 'admin',
-  type: 'graph', // optional, defaults document
+  type: 'graph', // optional, defaults graph
   storage: 'plocal', // optional, defaults to plocal
 });
 
