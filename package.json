@@ -19,6 +19,10 @@
   },
   "contributors": [
     {
+      "name": "Charles Pick",
+      "email": "charles@codemix.com"
+    },
+    {
       "name": "Gabriel Petrovay",
       "email": "gabipetrovay@gmail.com"
     },
@@ -33,10 +37,6 @@
     {
       "name": "Navin Parray",
       "email": "navinparray@gmail.com"
-    },
-    {
-      "name": "Charles Pick",
-      "email": "charles@codemix.com"
     }
   ],
   "repository": {
