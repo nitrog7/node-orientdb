@@ -1,4 +1,4 @@
-# 1.7.0-6 (2014/03/14)
+# 2.0.0-0 (2014/03/14)
 
 * Such refactor, many breaking changes, wow.
 
