@@ -185,7 +185,7 @@ describe("Database Operations", function () {
     });
   });
   describe('record-metadata', function () {
-    it("should retreive the metadata for a record", function (done) {
+    it("should retrieve the metadata for a record", function (done) {
       TEST_SERVER.send('record-metadata', {
         sessionId: dbSessionId,
         cluster: recordId.cluster,
