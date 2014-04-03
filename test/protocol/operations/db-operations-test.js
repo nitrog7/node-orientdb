@@ -1,9 +1,9 @@
 var path = require('path'),
-    dbSessionId = -1,
-    dataCluster = -1,
-    dataSegment = -1,
-    serverCluster = {},
-    recordId = null;
+	dbSessionId = -1,
+	dataCluster = -1,
+	dataSegment = -1,
+	serverCluster = {},
+	recordId = null;
 
 // @fixme these tests are extremely co-dependent
 // if you get a load of test errors, fix the first one first!
@@ -14,7 +14,7 @@ describe("Database Operations", function () {
       TEST_SERVER.send('db-create', {
         name: 'testdb_tmp',
         storage: 'memory',
-        type: 'graph',
+        type: 'document',
         username: TEST_SERVER_CONFIG.username,
         password: TEST_SERVER_CONFIG.password
       })
@@ -65,7 +65,7 @@ describe("Database Operations", function () {
       TEST_SERVER.send('db-open', {
         sessionId: -1,
         name: 'testdb_tmp',
-        type: 'graph',
+        type: 'document',
         username: 'admin',
         password: 'admin'
       })
@@ -185,7 +185,7 @@ describe("Database Operations", function () {
     });
   });
   describe('record-metadata', function () {
-    it("should retreive the metadata for a record", function (done) {
+    it("should retrieve the metadata for a record", function (done) {
       TEST_SERVER.send('record-metadata', {
         sessionId: dbSessionId,
         cluster: recordId.cluster,
@@ -244,145 +244,126 @@ describe("Database Operations", function () {
     });
   });
 
- describe('record-clean-out', function () {
-  before(function (done) {
-    TEST_SERVER.send('record-create', {
-      sessionId: dbSessionId,
-      cluster: 1,
-      record: {
-        name: 'Test',
-        email: 'test@test.com'
-      }
-    })
-    .bind(this)
-    .then(function (response) {
-      this.recordId = new LIB.RID({
-        cluster: 1,
-        position: response.position
-      })
-      done();
-    }, done)
-    .done();
-  });
-  it("should clean-out a record", function (done) {
-    TEST_SERVER.send('record-clean-out', {
-      sessionId: dbSessionId,
-      cluster: this.recordId.cluster,
-      position: this.recordId.position,
-    })
-    .then(function (response) {
-      response.success.should.be.true;
-      done();
-    }, done)
-    .done();
-  });
-});
-  describe('record-delete', function () {
-    it("should delete an existing record", function (done) {
-      TEST_SERVER.send('record-delete', {
-        sessionId: dbSessionId,
-        cluster: recordId.cluster,
-        position: recordId.position,
-      })
-      .then(function (response) {
-        response.success.should.be.true;
-        done();
-      }, done)
-      .done();
-    });
-    it("should not delete a missing record", function (done) {
-      TEST_SERVER.send('record-delete', {
-        sessionId: dbSessionId,
-        cluster: recordId.cluster,
-        position: recordId.position + 9999,
-      })
-      .then(function (response) {
-        response.success.should.be.false;
-        done();
-      }, done)
-      .done();
-    });
-  });
-  describe('datacluster-count', function () {
-    it("should count records in a data cluster", function (done) {
-      TEST_SERVER.send('datacluster-count', {
-        sessionId: dbSessionId,
-        id: dataCluster
-      })
-      .then(function (response) {
-        response.count.should.equal(0);
-        done();
-      }, done)
-      .done();
-    });
-  });
-  describe('datacluster-datarange', function () {
-    it("should get the range of record ids in a data cluster", function (done) {
-      TEST_SERVER.send('datacluster-datarange', {
-        sessionId: dbSessionId,
-        id: dataCluster
-      })
-      .then(function (response) {
-        response.begin.should.equal(-1);
-        response.end.should.equal(-1);
-        done();
-      }, done)
-      .done();
-    });
-  });
-  describe('datacluster-drop', function () {
-    it("should remove a data cluster", function (done) {
-      TEST_SERVER.send('datacluster-drop', {
-        sessionId: dbSessionId,
-        id: dataCluster
-      })
-      .then(function (response) {
-        response.should.have.property('success');
-        done();
-      }, done)
-      .done();
-    });
-  });
-  describe('datasegment-add', function () {
-    it("should add a data segment", function (done) {
-      TEST_SERVER.send('datasegment-add', {
-        sessionId: dbSessionId,
-        location: '/tmp',
-        name: 'test_segment'
-      })
-      .then(function (response) {
-        done();
-      }, done)
-      .done();
-    });
-  });
+	describe('record-clean-out', function () {
+		it.skip("should clean-out a record", function (done) {
+			TEST_SERVER.send('record-clean-out', {
+				sessionId: dbSessionId,
+				cluster: recordId.cluster,
+				position: recordId.position,
+			})
+				.then(function (response) {
+					response.success.should.be.true;
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('record-delete', function () {
+		it("should delete an existing record", function (done) {
+			TEST_SERVER.send('record-delete', {
+				sessionId: dbSessionId,
+				cluster: recordId.cluster,
+				position: recordId.position,
+			})
+				.then(function (response) {
+					response.success.should.be.true;
+					done();
+				}, done)
+				.done();
+		});
+		it("should not delete a missing record", function (done) {
+			TEST_SERVER.send('record-delete', {
+				sessionId: dbSessionId,
+				cluster: recordId.cluster,
+				position: recordId.position + 9999,
+			})
+				.then(function (response) {
+					response.success.should.be.false;
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('datacluster-count', function () {
+		it("should count records in a data cluster", function (done) {
+			TEST_SERVER.send('datacluster-count', {
+				sessionId: dbSessionId,
+				id: dataCluster
+			})
+				.then(function (response) {
+					response.count.should.equal(0);
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('datacluster-datarange', function () {
+		it("should get the range of record ids in a data cluster", function (done) {
+			TEST_SERVER.send('datacluster-datarange', {
+				sessionId: dbSessionId,
+				id: dataCluster
+			})
+				.then(function (response) {
+					response.begin.should.equal(-1);
+					response.end.should.equal(-1);
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('datacluster-drop', function () {
+		it("should remove a data cluster", function (done) {
+			TEST_SERVER.send('datacluster-drop', {
+				sessionId: dbSessionId,
+				id: dataCluster
+			})
+				.then(function (response) {
+					response.should.have.property('success');
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('datasegment-add', function () {
+		it("should add a data segment", function (done) {
+			TEST_SERVER.send('datasegment-add', {
+				sessionId: dbSessionId,
+				location: '/tmp',
+				name: 'test_segment'
+			})
+				.then(function (response) {
+					done();
+				}, done)
+				.done();
+		});
+	});
 
-  describe('db-close', function () {
-    it("should close a database", function (done) {
-      TEST_SERVER.send('db-close', {
-        sessionId: dbSessionId
-      })
-      .then(function (response) {
-        done();
-      }, done)
-      .done();
-    });
-  });
-  describe('db-delete', function () {
-    it('should delete a database', function (done) {
-      TEST_SERVER.send('db-delete', {
-        name: 'testdb_tmp',
-        storage: 'memory',
-        username: TEST_SERVER_CONFIG.username,
-        password: TEST_SERVER_CONFIG.password
-      })
-      .then(function (response) {
-        done();
-      })
-      .catch(function (e) {
-        done(e || 'ERRR');
-      })
-      .done();
-    });
-  })
+	describe('db-close', function () {
+		it("should close a database", function (done) {
+			TEST_SERVER.send('db-close', {
+				sessionId: dbSessionId
+			})
+				.then(function (response) {
+					done();
+				}, done)
+				.done();
+		});
+	});
+	describe('db-delete', function () {
+		it('should delete a database', function (done) {
+			TEST_SERVER.send('db-delete', {
+				name: 'testdb_tmp',
+				storage: 'memory',
+				username: TEST_SERVER_CONFIG.username,
+				password: TEST_SERVER_CONFIG.password
+			})
+				.then(function (response) {
+					done();
+				})
+				.catch(function (e) {
+					done(e || 'ERRR');
+				})
+				.done();
+		});
+	})
 });
