@@ -86,4 +86,4 @@ In 2012, [Gabriel Petrovay](https://github.com/gabipetrovay) created the origina
 
 In early 2014, [Giraldo Rosales](https://github.com/nitrog7) made a [whole host of improvements](https://github.com/nitrog7/node-orientdb), including support for orientdb 1.7 and switched to a promise based API.
 
-Later in 2014, [Charles Pick](https://github.com/phpnode) refactored the library to make it easier to extend and maintain, and introduced an API similar to [nano](https://github.com/dscape/nano).
+Later in 2014, [Charles Pick](https://github.com/phpnode) refactored the library to make it easier to extend and maintain, and introduced an API similar to [nano](https://github.com/dscape/nano). Forking off into a new flavor, [Oriento](https://github.com/codemix/oriento).
