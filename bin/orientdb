@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+'use strict';
+
+var LIB = require('../lib'),
+  cli = new LIB.CLI();
+
+cli.run(process.argv.slice(1)).done(process.exit.bind(process, null));
