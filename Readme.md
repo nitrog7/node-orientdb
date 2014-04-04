@@ -1,34 +1,59 @@
-Introduction
-========
-
+# Introduction
 This is a node.js driver for OrientDB using the OrientDB binary protocol. This driver is based on the latest version of OrientDB: 1.7.0.
 
-Installation
-========
+# Installation
+There are two ways to install the driver. The first is to use npm to download the package into your project. The second is to manually pull the repo from the server and copy it to your "node_modules" directory.
 
+To use npm, cd into your project directory and run the command:
 ```
 npm install node-orientdb
 ```
 
-As developer you should fork/clone this repo and once you have it on your machine, do the following in your repo directory:
+To grab the latest copy from git, you can either clone a copy from master (production) or development. Once you have it on your machine copy it to your "node_modules" directory.
 
+# Usage
+
+### Configuring the connection.
+
+```js
+var OrientDB =  require('node-orientdb');
+
+var server = OrientDB({
+  host: 'localhost',
+  port: 2424,
+  username: 'admin',
+  password: 'admin'
+});
+
+//Query the database
+var db = server.use('mydb');
+db.query('SELECT FROM V LIMIT 5')
+  .then(function(results) {
+    console.log(results);
+  });
 ```
-npm install
-```
 
-Status
-========
 
-The NodeJS OrientDB driver is almost mature, but we are still testing. While we use it in production already and therefore it implements a sufficient number of features for making a fully featured application, we recommend you make some thorough tests before you do it as well. If you find any problems, let us know such that we can improve things. Until version 1.0 we also don't guarantee any backwards compatibility and API stability since we are trying things out. But 1.0 should not be far from now.
+# Status
+The NodeJS OrientDB driver is stable. While we use it in production already and therefore it implements a sufficient number of features for making a fully featured application, we recommend you make some thorough tests before you do it as well. If you find any problems, let us know such that we can improve things.
 
-Supported Versions
-========
+### Supported Versions
+Node-OrientDB has been tested with OrientDB 1.7. We test each release with the most recent version of OrientDB. Although we try to remain backwards compatible, it may not be fully tested. If you experience any problems with an older version than the current, please inform us.
 
-We test each release with the most recent version of OrientDB. Although we try to remain backwards compatible, it may not be fully tested. If you experience any problems with an older version than the current, please inform us.
+### Driver Compatibility
+To see if your version of OrientDB supports a method, please see the compatibility list: [Operation Types](https://github.com/orientechnologies/orientdb/wiki/Network-Binary-Protocol#operation-types)
 
-Documentation
-========
 
+# Features
+- Tested with latest orientdb (1.7).
+- Intuitive API, based on [bluebird](https://github.com/petkaantonov/bluebird) promises.
+- Fast binary protocol parser.
+- Access multiple databases via the same socket.
+- Migration support.
+- Simple CLI.
+
+
+# Documentation
 * [Quick Start](https://github.com/orientechnologies/orientdb/wiki/Quick-Start)
 * [Server](https://github.com/nitrog7/node-orientdb/wiki/Server-API)
 * [Database](https://github.com/nitrog7/node-orientdb/wiki/Document-Database)
@@ -39,9 +64,8 @@ Documentation
     * [Vertex](https://github.com/nitrog7/node-orientdb/wiki/Graph-Database#wiki-vertex)
     * [Edge](https://github.com/nitrog7/node-orientdb/wiki/Graph-Database#wiki-edges)
 
-Tutorial
-========
 
+# Tutorial
 Overview of OrientDB and concepts:
 * [Overview](http://www.youtube.com/watch?v=o_7NCiTLVis)
 
@@ -52,59 +76,14 @@ To start using OrientDB, check out the following YouTube tutorials based on vers
 * [Populating the Database](https://www.youtube.com/watch?v=MeXLuErdDHw)
 * [Using the Database](https://www.youtube.com/watch?v=oAeY-pXBi-I)
 
-Example
-========
 
-```javascript
-var Orientdb = require('node-orientdb');
-var Db       = Orientdb.GraphDb;
-
-var dbConfig = {
-    //Server
-    server_host:'localhost',
-    server_port:2424,
-    server_username:'admin',
-    server_password:'admin',
-
-    //Database
-    database_name:'test',
-    database_username:'admin',
-    database_password:'admin',
-    database_type: 'document', //Optional. Default: document.
-    database_storage: 'local' //Optional. Default: local.
-};
-
-var db = new Db(dbConfig);
-
-db.open()
-    .then(function(results) {
-	    //Details
-        console.log("Database '" + db.databaseName + "' has " + db.clusters.length + " clusters");
-
-		//SQL Statement
-		var sql  = 'SELECT FROM Users';
-		var opts = {};
-		
-        //Queries
-        db.query(sql, opts)
-            .then(function(results) {
-        		console.log(results);
-        	})
-        	.error(function(error) {
-        		console.log(error);
-        	});
-	})
-	.error(function(error) {
-		console.log(error);
-	});
-```
-
-Changes
-========
-
+# Changes
 See [ChangeLog](https://github.com/nitrog7/node-orientdb/blob/master/ChangeLog)
 
-Driver Compatibility
-========
 
-To see if your version of OrientDB supports a method, please see the compatibility list: [Operation Types](https://github.com/orientechnologies/orientdb/wiki/Network-Binary-Protocol#operation-types)
+# History
+In 2012, [Gabriel Petrovay](https://github.com/gabipetrovay) created the original [node-orientdb](https://github.com/gabipetrovay/node-orientdb) library, with a straightforward callback based API.
+
+In early 2014, [Giraldo Rosales](https://github.com/nitrog7) made a [whole host of improvements](https://github.com/nitrog7/node-orientdb), including support for orientdb 1.7 and switched to a promise based API.
+
+Later in 2014, [Charles Pick](https://github.com/phpnode) refactored the library to make it easier to extend and maintain, and introduced an API similar to [nano](https://github.com/dscape/nano).
