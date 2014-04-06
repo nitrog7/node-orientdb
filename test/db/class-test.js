@@ -1,3 +1,5 @@
+'use strict';
+
 var Class = require('../../lib/db/class');
 
 describe("Database API - Class", function () {
@@ -108,7 +110,7 @@ describe("Database API - Class", function () {
         .then(function (users) {
           users.length.should.be.above(0);
           users[0].should.have.property('@rid');
-          users[0].name.should.equal('TestUser')
+          users[0].name.should.equal('TestUser');
           done();
         }, done).done();
       });
@@ -151,7 +153,5 @@ describe("Database API - Class", function () {
         }, done).done();
       });
     });
-
   });
-
 });

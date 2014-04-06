@@ -18,7 +18,7 @@ To grab the latest copy from git, you can either clone a copy from master (produ
 ```js
 var OrientDB =  require('node-orientdb');
 
-var server = OrientDB({
+var server = new OrientDB({
   host: 'localhost',
   port: 2424,
   username: 'admin',

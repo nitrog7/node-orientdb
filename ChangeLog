@@ -1,6 +1,13 @@
+2.0.1 ()
+* Connection Pooling
+* Added transform() and column()
+* Added default query defaults
+* Class and Property metadata
+* Added index support
+
 2.0.0 (2014/4/4)
-*New syntax
-*Support for ridbags
+* New syntax
+* Support for ridbags
 
 1.7.0-5 (2014/01/26)
 

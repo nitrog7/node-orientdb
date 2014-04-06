@@ -12,7 +12,7 @@
     "node",
     "node.js"
   ],
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": {
     "name": "Giraldo Rosales",
     "email": "giraldo@nitrogenlabs.com"
@@ -49,7 +49,7 @@
     "yargs": "*"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": ">=1.18.2",
     "should": "*",
     "expect.js": "*"
   },
@@ -71,5 +71,13 @@
       "type": "Apache License, Version 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
-  ]
+  ],
+  "readme": "# Introduction\nThis is a node.js driver for OrientDB using the OrientDB binary protocol. This driver is based on the latest version of OrientDB: 1.7.0.\n\n# Installation\nThere are two ways to install the driver. The first is to use npm to download the package into your project. The second is to manually pull the repo from the server and copy it to your \"node_modules\" directory.\n\nTo use npm, cd into your project directory and run the command:\n```\nnpm install node-orientdb\n```\n\nTo grab the latest copy from git, you can either clone a copy from master (production) or development. Once you have it on your machine copy it to your \"node_modules\" directory.\n\n# Usage\n\n### Configuring the connection.\n\n```js\nvar OrientDB =  require('node-orientdb');\n\nvar server = new OrientDB({\n  host: 'localhost',\n  port: 2424,\n  username: 'admin',\n  password: 'admin'\n});\n\n//Query the database\nvar db = server.use('mydb');\ndb.query('SELECT FROM V LIMIT 5')\n  .then(function(results) {\n    console.log(results);\n  });\n```\n\n\n# Status\nThe NodeJS OrientDB driver is stable. While we use it in production already and therefore it implements a sufficient number of features for making a fully featured application, we recommend you make some thorough tests before you do it as well. If you find any problems, let us know such that we can improve things.\n\n### Supported Versions\nNode-OrientDB has been tested with OrientDB 1.7. We test each release with the most recent version of OrientDB. Although we try to remain backwards compatible, it may not be fully tested. If you experience any problems with an older version than the current, please inform us.\n\n### Driver Compatibility\nTo see if your version of OrientDB supports a method, please see the compatibility list: [Operation Types](https://github.com/orientechnologies/orientdb/wiki/Network-Binary-Protocol#operation-types)\n\n\n# Features\n- Tested with latest orientdb (1.7).\n- Intuitive API, based on [bluebird](https://github.com/petkaantonov/bluebird) promises.\n- Fast binary protocol parser.\n- Access multiple databases via the same socket.\n- Migration support.\n- Simple CLI.\n\n\n# Documentation\n* [Quick Start](https://github.com/orientechnologies/orientdb/wiki/Quick-Start)\n* [Server](https://github.com/nitrog7/node-orientdb/wiki/Server-API)\n* [Database](https://github.com/nitrog7/node-orientdb/wiki/Document-Database)\n    * [Records](https://github.com/nitrog7/node-orientdb/wiki/Document-Database#records)\n    * [Data Clusters](https://github.com/nitrog7/node-orientdb/wiki/Document-Database#data-clusters)\n    * [Data Segments](https://github.com/nitrog7/node-orientdb/wiki/Document-Database#data-cluster)\n* [Graph Database](https://github.com/nitrog7/node-orientdb/wiki/Graph-Database)\n    * [Vertex](https://github.com/nitrog7/node-orientdb/wiki/Graph-Database#wiki-vertex)\n    * [Edge](https://github.com/nitrog7/node-orientdb/wiki/Graph-Database#wiki-edges)\n\n\n# Tutorial\nOverview of OrientDB and concepts:\n* [Overview](http://www.youtube.com/watch?v=o_7NCiTLVis)\n\nTo start using OrientDB, check out the following YouTube tutorials based on version 1.6.2:\n* [Getting Started](https://www.youtube.com/watch?v=X-pXqvVTK6E)\n* [Querying](https://www.youtube.com/watch?v=w0VfWljYEbw)\n* [Creating a Schema](https://www.youtube.com/watch?v=KzkjKwkpMII)\n* [Populating the Database](https://www.youtube.com/watch?v=MeXLuErdDHw)\n* [Using the Database](https://www.youtube.com/watch?v=oAeY-pXBi-I)\n\n\n# Changes\nSee [ChangeLog](https://github.com/nitrog7/node-orientdb/blob/master/ChangeLog)\n\n\n# History\nIn 2012, [Gabriel Petrovay](https://github.com/gabipetrovay) created the original [node-orientdb](https://github.com/gabipetrovay/node-orientdb) library, with a straightforward callback based API.\n\nIn early 2014, [Giraldo Rosales](https://github.com/nitrog7) made a [whole host of improvements](https://github.com/nitrog7/node-orientdb), including support for orientdb 1.7 and switched to a promise based API.\n\nLater in 2014, [Charles Pick](https://github.com/phpnode) refactored the library to make it easier to extend and maintain, and introduced an API similar to [nano](https://github.com/dscape/nano). Forking off into a new flavor, [Oriento](https://github.com/codemix/oriento).\n",
+  "readmeFilename": "Readme.md",
+  "bugs": {
+    "url": "https://github.com/nitrog7/node-orientdb/issues"
+  },
+  "homepage": "https://github.com/nitrog7/node-orientdb",
+  "_id": "node-orientdb@2.0.1",
+  "_from": "node-orientdb@"
 }
