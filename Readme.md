@@ -15,14 +15,17 @@ To grab the latest copy from git, you can either clone a copy from master (produ
 
 ### Configuring the connection.
 
-```js
+```javascript
 var OrientDB =  require('node-orientdb');
 
 var server = new OrientDB({
   host: 'localhost',
   port: 2424,
   username: 'admin',
-  password: 'admin'
+  password: 'admin',
+  pool: {
+    max: 10
+  }
 });
 
 //Query the database

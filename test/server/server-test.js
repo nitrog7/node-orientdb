@@ -7,6 +7,7 @@ describe('Server', function() {
     it('should negotiate a connection', function(done) {
       TEST_SERVER.connect()
         .then(function(server) {
+          //console.log(server);
           server.sessionId.should.be.above(-1);
           done();
         }, done).done();
@@ -38,6 +39,7 @@ describe('Server::create()', function() {
       storage: 'memory'
     })
       .then(function(db) {
+        //console.log(db);
         db.name.should.equal('testdb_server');
         done();
       }, done).done();
@@ -47,6 +49,7 @@ describe('Server::list()', function() {
   it('should list the existing databases', function(done) {
     TEST_SERVER.list()
       .then(function(dbs) {
+        //console.log(dbs);
         var names = Object.keys(dbs);
 
         for(var g = 0; g<names.length; g++) {
@@ -64,6 +67,7 @@ describe('Server::exists()', function() {
   it('should confirm an existing database exists', function(done) {
     TEST_SERVER.exists('testdb_server')
       .then(function(exists) {
+        //console.log(exists);
         exists.should.be.true;
         done();
       }, done);
@@ -84,6 +88,7 @@ describe('Server::delete()', function() {
       storage: 'memory'
     })
       .then(function(response) {
+        //console.log(response);
         response.should.be.true;
         done();
       }, done).done();
@@ -93,6 +98,7 @@ describe('Server::config.list', function() {
   it('should list the server config', function(done) {
     TEST_SERVER.config.list()
       .then(function(config) {
+        //console.log(config);
         config.should.have.property('db.pool.min');
         done();
       }, done).done();
@@ -103,6 +109,7 @@ describe('Server::config.get', function() {
   it('should get a server config key', function(done) {
     TEST_SERVER.config.get('db.pool.min')
       .then(function(value) {
+        //console.log(value);
         value.should.have.type('string');
         done();
       }, done).done();

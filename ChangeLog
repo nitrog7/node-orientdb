@@ -1,12 +1,12 @@
 2.0.2 (2014/04/06)
+* Bug fixes
+
+2.0.1 (2014/04/06)
 * Connection Pooling
 * Added transform() and column()
 * Added default query defaults
 * Class and Property metadata
 * Added index support
-
-2.0.1 (2014/04/05)
-* Bug fixes
 
 2.0.0 (2014/04/04)
 * New syntax

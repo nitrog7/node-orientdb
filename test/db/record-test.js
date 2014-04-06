@@ -1,15 +1,26 @@
+'use strict';
+
 var createdRID;
 
-describe("Database API - Record", function () {
-  before(function (done) {
-    CREATE_TEST_DB(this, 'testdb_dbapi_record')
-    .then(done, done)
-    .done();
+describe('Database API - Record', function () {
+  before(function () {
+    return CREATE_TEST_DB(this, 'testdb_dbapi_record')
+      .bind(this)
+      .then(function() {
+        return this.db.class.get('OUser');
+      })
+      .then(function(OUser) {
+        console.log('RECORD::', OUser);
+        return OUser.property.create({
+          name: 'linkedTest1',
+          type: 'Link'
+        });
+      });
   });
   after(function (done) {
     DELETE_TEST_DB('testdb_dbapi_record')
-    .then(done, done)
-    .done();
+      .then(done, done)
+      .done();
   });
 
   describe('Db::record.get()', function () {
@@ -50,6 +61,47 @@ describe("Database API - Record", function () {
         createdRID = record['@rid'];
         done();
       }, done).done();
+    });
+
+    it('should create a record with a dynamic linked field', function () {
+      return this.db.record.create({
+        '@class': 'OUser',
+        name: 'othertestuser',
+        password: 'testpassword',
+        status: 'ACTIVE',
+        linkedTest1: '#5:0', // defined link field
+        linkedTest2: '#5:1' // dynamic field
+      })
+        .bind(this)
+        .then(function (obj) {
+          return this.db.record.get(obj['@rid']);
+        })
+        .then(function (record) {
+          record.name.should.equal('othertestuser');
+          expect(record.linkedTest1).to.equal(null); // because we did not pass a RID.
+          expect(typeof record.linkedTest2).to.equal('string'); // because we did not pass a RID, this is not a link
+          record.linkedTest2.should.equal('#5:1');
+        });
+    });
+
+    it('should create a record with a dynamic linked field, with RIDs', function () {
+      return this.db.record.create({
+        '@class': 'OUser',
+        name: 'othertestuser2',
+        password: 'testpassword',
+        status: 'ACTIVE',
+        linkedTest1: new LIB.RID('#5:0'), // defined field
+        linkedTest2: new LIB.RID('#5:1') // dynamic field
+      })
+        .bind(this)
+        .then(function (obj) {
+          return this.db.record.get(obj['@rid']);
+        })
+        .then(function (record) {
+          record.name.should.equal('othertestuser2');
+          record.linkedTest1.should.equal('#5:0'); // a real link
+          record.linkedTest2.should.equal('#5:1'); // a real link
+        });
     });
   });
 
